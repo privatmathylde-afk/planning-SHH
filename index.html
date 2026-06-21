@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Planning des conseillers — Saint-Hilaire-du-Harcouët</title>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="icon" href="icons/icon-192.png">
+<meta name="theme-color" content="#1D9E75">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Planning SHH">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+:root{--bg:#fff;--bg2:#f7f6f2;--bg3:#f0efe9;--text:#1a1a18;--text2:#6b6a64;--text3:#9b9a94;--border:rgba(0,0,0,0.1);--border2:rgba(0,0,0,0.18);--r:12px;--rs:8px;--gbg:#E1F5EE;--g:#085041;--gbd:#9FE1CB;--gm:#1D9E75;--rbg:#FCEBEB;--rd:#A32D2D;--rbd:#F7C1C1;--bbg:#E6F1FB;--b:#0C447C;--bbd:#85B7EB;--pbg:#EEEDFE;--p:#3C3489;--pbd:#AFA9EC}
+@media(prefers-color-scheme:dark){:root{--bg:#1c1c1a;--bg2:#252523;--bg3:#2e2e2b;--text:#e8e6dc;--text2:#a8a69e;--text3:#6b6964;--border:rgba(255,255,255,0.1);--border2:rgba(255,255,255,0.18);--gbg:#083d2e;--g:#9FE1CB;--gbd:#0F6E56;--gm:#1D9E75;--rbg:#3d1515;--rd:#F09595;--rbd:#A32D2D;--bbg:#0a2540;--b:#85B7EB;--bbd:#185FA5;--pbg:#1e1b40;--p:#AFA9EC;--pbd:#534AB7}}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg3);color:var(--text);min-height:100vh}
+/* LOGIN */
+.login-screen{position:fixed;inset:0;background:var(--bg3);display:flex;align-items:center;justify-content:center;z-index:9999;padding:24px}
+.login-card{background:var(--bg);border-radius:20px;border:0.5px solid var(--border2);padding:2rem;width:100%;max-width:360px;text-align:center}
+.login-icon{width:64px;height:64px;border-radius:18px;background:var(--gm);display:flex;align-items:center;justify-content:center;color:#fff;font-size:28px;margin:0 auto 1.25rem}
+.login-title{font-size:20px;font-weight:700;margin-bottom:6px}
+.login-sub{font-size:13px;color:var(--text3);margin-bottom:1.5rem;line-height:1.6}
+.login-field{margin-bottom:12px;text-align:left}
+.login-field label{font-size:11px;color:var(--text3);display:block;margin-bottom:5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.login-field input{width:100%;padding:11px 14px;border-radius:10px;border:0.5px solid var(--border2);background:var(--bg2);color:var(--text);font-size:15px;outline:none;font-family:inherit;text-align:center;letter-spacing:.1em}
+.login-field input:focus{border-color:var(--gm)}
+.login-btn{width:100%;padding:12px;border-radius:10px;background:var(--gm);border:none;color:#fff;font-size:15px;font-weight:700;cursor:pointer;margin-top:4px;font-family:inherit;transition:opacity .2s}
+.login-btn:hover{opacity:.88}
+.login-error{background:var(--rbg);border:0.5px solid var(--rbd);color:var(--rd);padding:10px 14px;border-radius:8px;font-size:13px;margin-top:10px;display:none}
+.login-error.show{display:block}
+/* APP */
+.app{display:none;max-width:760px;margin:0 auto;padding:24px 16px 60px}
+.topbar{display:flex;align-items:center;gap:12px;margin-bottom:24px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;flex:1}
+.brand-icon{width:42px;height:42px;border-radius:12px;background:var(--gm);display:flex;align-items:center;justify-content:center;color:#fff;font-size:20px;flex-shrink:0}
+.brand-text{font-size:18px;font-weight:700}
+.brand-sub{font-size:12px;color:var(--text3);margin-top:1px}
+.id-pill{display:flex;align-items:center;gap:8px;background:var(--bg2);border:0.5px solid var(--border2);border-radius:20px;padding:5px 14px 5px 6px;cursor:pointer;transition:all .2s}
+.id-pill:hover{background:var(--bg3)}
+#notif-btn.active{background:var(--gbg);border-color:var(--gbd);color:var(--g)}
+.av{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
+.av.anon{background:var(--bg3);color:var(--text3);border:0.5px solid var(--border)}
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-bottom:24px}
+.stat{border-radius:var(--r);padding:16px;display:flex;flex-direction:column;gap:5px;border:0.5px solid}
+.stat.blue{background:var(--bbg);border-color:var(--bbd)}.stat.green{background:var(--gbg);border-color:var(--gbd)}.stat.red{background:var(--rbg);border-color:var(--rbd)}.stat.purple{background:var(--pbg);border-color:var(--pbd)}
+.stat-val{font-size:26px;font-weight:700;line-height:1}
+.stat.blue .stat-val{color:var(--b)}.stat.green .stat-val{color:var(--gm)}.stat.red .stat-val{color:var(--rd)}.stat.purple .stat-val{color:var(--p)}
+.stat-lbl{font-size:11px;font-weight:600;opacity:.8}
+.stat.blue .stat-lbl{color:var(--b)}.stat.green .stat-lbl{color:var(--gm)}.stat.red .stat-lbl{color:var(--rd)}.stat.purple .stat-lbl{color:var(--p)}
+.nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;gap:10px;flex-wrap:wrap}
+.tabs{display:flex;gap:3px;background:var(--bg2);padding:4px;border-radius:22px;border:0.5px solid var(--border)}
+.tab{padding:6px 13px;border-radius:18px;border:none;font-size:13px;cursor:pointer;color:var(--text2);background:transparent;transition:all .2s;display:flex;align-items:center;gap:5px;white-space:nowrap}
+.tab.active{background:var(--bg);color:var(--text);font-weight:700;border:0.5px solid var(--border)}
+.btn-add{display:flex;align-items:center;gap:6px;padding:8px 18px;border-radius:20px;background:var(--gm);border:none;font-size:13px;cursor:pointer;color:#fff;font-weight:700;transition:all .2s}
+.btn-add:hover{opacity:.88;transform:translateY(-1px)}
+.ev-grid{display:flex;flex-direction:column;gap:8px}
+.ev-card{background:var(--bg);border-radius:var(--r);overflow:hidden;border:1.5px solid var(--border);transition:all .2s}
+.ev-card:hover{border-color:var(--border2);transform:translateY(-1px)}
+.ev-card.mine{border-color:var(--gm)}
+.ev-card.past{opacity:.55}
+.ev-top{display:flex;align-items:center;gap:12px;padding:13px 16px;cursor:pointer}
+.ev-stripe{width:4px;border-radius:4px;align-self:stretch;flex-shrink:0;min-height:44px}
+.ev-date{min-width:46px;text-align:center;background:var(--bg2);border-radius:var(--rs);padding:6px;flex-shrink:0}
+.ev-day{font-size:19px;font-weight:700;line-height:1}
+.ev-month{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-top:2px}
+.ev-info{flex:1;min-width:0}
+.ev-name{font-size:14px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ev-meta{font-size:12px;color:var(--text3);margin-top:3px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.type-pill{font-size:11px;padding:2px 8px;border-radius:20px;font-weight:700;white-space:nowrap}
+.ev-right{display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0}
+.badge-p{font-size:11px;padding:3px 9px;border-radius:20px;white-space:nowrap;font-weight:700}
+.badge-p.has{background:var(--gbg);color:var(--g)}.badge-p.zero{background:var(--rbg);color:var(--rd)}
+.btn-join{font-size:12px;padding:5px 12px;border-radius:20px;border:1.5px solid;cursor:pointer;white-space:nowrap;transition:all .2s;font-weight:700}
+.btn-join.out{border-color:var(--border2);background:transparent;color:var(--text2)}.btn-join.out:hover{background:var(--bg2)}
+.btn-join.in{background:var(--gbg);color:var(--g);border-color:var(--gbd)}
+.ev-body{padding:12px 16px;display:none;background:var(--bg2);border-top:0.5px solid var(--border)}
+.ev-body.open{display:block}
+.p-grid{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;min-height:28px}
+.chip{display:flex;align-items:center;gap:5px;font-size:12px;padding:4px 10px;border-radius:20px;background:var(--bg);color:var(--text2);border:0.5px solid var(--border2)}
+.chip.me{background:var(--gbg);color:var(--g);border-color:var(--gbd);font-weight:700}
+.chip-av{width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700}
+.ev-foot{display:flex;align-items:center;justify-content:space-between}
+.ev-foot-info{font-size:11px;color:var(--text3)}
+.btn-del{background:none;border:0.5px solid transparent;border-radius:var(--rs);padding:4px 8px;cursor:pointer;color:var(--text3);font-size:12px;transition:all .15s;display:flex;align-items:center;gap:4px}
+.btn-del:hover{color:var(--rd);background:var(--rbg);border-color:var(--rbd)}
+.empty{text-align:center;padding:3rem 1rem;color:var(--text3)}
+.empty i{font-size:44px;display:block;margin-bottom:14px;opacity:.2}
+.filter-bar{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.filter-btn{font-size:12px;padding:4px 12px;border-radius:20px;border:0.5px solid var(--border2);background:transparent;cursor:pointer;color:var(--text2);transition:all .15s;font-weight:500}
+.filter-btn.active{font-weight:700;border-width:1.5px}
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);align-items:center;justify-content:center;z-index:100;padding:16px}
+.modal-bg.open{display:flex}
+.modal{background:var(--bg);border-radius:16px;border:0.5px solid var(--border2);padding:1.5rem;width:100%;max-width:380px;max-height:90vh;overflow-y:auto}
+.modal-title{font-size:16px;font-weight:700;margin-bottom:1.25rem;display:flex;align-items:center;gap:8px}
+.mf{margin-bottom:12px}
+.mf label{font-size:11px;color:var(--text3);display:block;margin-bottom:5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.mf input,.mf select{width:100%;padding:9px 12px;border-radius:var(--rs);border:0.5px solid var(--border2);background:var(--bg2);color:var(--text);font-size:14px;outline:none;font-family:inherit}
+.mf input:focus,.mf select:focus{border-color:var(--gm)}
+.mf-row{display:flex;gap:10px}
+.mf-row .mf{flex:1}
+.modal-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:1.25rem}
+.btn-cancel{padding:8px 16px;border-radius:20px;border:0.5px solid var(--border2);background:transparent;font-size:13px;cursor:pointer;color:var(--text2);font-family:inherit}
+.btn-confirm{padding:8px 18px;border-radius:20px;border:none;background:var(--gm);font-size:13px;cursor:pointer;color:#fff;font-weight:700;font-family:inherit;display:flex;align-items:center;gap:5px}
+.btn-danger{padding:8px 18px;border-radius:20px;border:none;background:#E24B4A;font-size:13px;cursor:pointer;color:#fff;font-weight:700;font-family:inherit}
+.id-list{max-height:260px;overflow-y:auto;display:flex;flex-direction:column;gap:5px;margin-bottom:12px}
+.c-opt{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:10px;border:0.5px solid var(--border);cursor:pointer;transition:all .15s}
+.c-opt:hover{background:var(--bg2)}.c-opt.selected{background:var(--gbg);border-color:var(--gbd)}
+.cav-lg{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0}
+.year-nav{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.yn-btn{background:none;border:0.5px solid var(--border2);border-radius:var(--rs);padding:6px 14px;cursor:pointer;color:var(--text2);font-size:14px;font-family:inherit}
+.yn-btn:hover{background:var(--bg2)}
+.year-lbl{font-size:17px;font-weight:700}
+.a-legend{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap}
+.leg-item{display:flex;align-items:center;gap:5px;font-size:12px;padding:4px 10px;border-radius:20px;background:var(--bg2);color:var(--text2);border:0.5px solid var(--border)}
+.ldot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.annual-wrap{display:flex;flex-direction:column;gap:1.5rem}
+.month-hd{font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.month-hd::after{content:"";flex:1;height:0.5px;background:var(--border)}
+.a-row{display:flex;align-items:center;gap:8px;padding:9px 14px;border-radius:10px;border:0.5px solid;cursor:pointer;transition:all .15s;margin-bottom:4px}
+.a-row.green{background:var(--gbg);border-color:var(--gbd)}.a-row.green:hover{opacity:.85}
+.a-row.red{background:var(--rbg);border-color:var(--rbd)}.a-row.red:hover{opacity:.85}
+.a-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.a-dot.green{background:var(--gm)}.a-dot.red{background:#E24B4A}
+.a-day{font-size:12px;font-weight:700;min-width:22px;flex-shrink:0}
+.a-day.green{color:var(--g)}.a-day.red{color:var(--rd)}
+.a-time{font-size:11px;font-weight:600;flex-shrink:0;opacity:.8}
+.a-time.green{color:var(--g)}.a-time.red{color:var(--rd)}
+.a-name{font-size:13px;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:500}
+.a-name.green{color:var(--g)}.a-name.red{color:var(--rd)}
+.a-type{font-size:11px;padding:2px 7px;border-radius:20px;white-space:nowrap;font-weight:700;flex-shrink:0}
+.a-badge{font-size:11px;padding:2px 8px;border-radius:20px;white-space:nowrap;font-weight:700;flex-shrink:0}
+.a-badge.green{background:var(--gm);color:#fff}.a-badge.red{background:var(--rbd);color:var(--rd)}
+.manage-wrap{display:flex;flex-direction:column;gap:1.5rem}
+.add-box{background:var(--bg2);border-radius:var(--r);padding:1.25rem;border:0.5px solid var(--border)}
+.add-box-title{font-size:13px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.add-row{display:flex;gap:8px;align-items:center}
+.add-row input{flex:1;padding:9px 12px;border-radius:var(--rs);border:0.5px solid var(--border2);background:var(--bg);color:var(--text);font-size:14px;outline:none;font-family:inherit}
+.add-row input:focus{border-color:var(--gm)}
+.c-grid{display:flex;flex-direction:column;gap:6px}
+.c-card{background:var(--bg);border:0.5px solid var(--border);border-radius:var(--r);padding:12px 14px;display:flex;align-items:center;gap:12px;transition:all .2s}
+.c-card:hover{border-color:var(--border2)}
+.c-info{flex:1;min-width:0}
+.c-name{font-size:14px;font-weight:700}
+.c-sub{font-size:12px;color:var(--text3);margin-top:2px}
+.btn-trash{background:none;border:0.5px solid var(--border);border-radius:var(--rs);padding:6px 10px;cursor:pointer;color:var(--text3);font-size:13px;transition:all .15s;display:flex;align-items:center;gap:4px;font-family:inherit}
+.btn-trash:hover{border-color:var(--rbd);color:var(--rd);background:var(--rbg)}
+.section-hd{font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.section-hd::after{content:"";flex:1;height:0.5px;background:var(--border)}
+.loading{display:flex;align-items:center;justify-content:center;gap:10px;padding:3rem;color:var(--text3);font-size:14px}
+.spinner{width:20px;height:20px;border:2px solid var(--border2);border-top-color:var(--gm);border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.toast{position:fixed;bottom:24px;right:24px;background:var(--text);color:var(--bg);padding:10px 18px;border-radius:10px;font-size:13px;font-weight:700;z-index:999;opacity:0;transform:translateY(8px);transition:all .3s;pointer-events:none}
+.toast.show{opacity:1;transform:translateY(0)}
+.err-banner{background:var(--rbg);border:0.5px solid var(--rbd);color:var(--rd);padding:12px 16px;border-radius:var(--rs);font-size:13px;margin-bottom:16px;display:none}
+.err-banner.show{display:block}
+</style>
+</head>
+<body>
+
+<!-- ÉCRAN DE CONNEXION -->
+<div class="login-screen" id="login-screen">
+  <div class="login-card">
+    <div class="login-icon"><i class="ti ti-lock"></i></div>
+    <div class="login-title">Planning des conseillers</div>
+    <div class="login-sub">Saint-Hilaire-du-Harcouët<br>Entrez le mot de passe pour accéder au planning.</div>
+    <div class="login-field">
+      <label>Mot de passe</label>
+      <input type="password" id="login-pwd" placeholder="••••••••" onkeydown="if(event.key==='Enter')checkLogin()">
+    </div>
+    <button class="login-btn" onclick="checkLogin()"><i class="ti ti-arrow-right" style="margin-right:6px"></i>Accéder au planning</button>
+    <div class="login-error" id="login-error">Mot de passe incorrect. Réessayez.</div>
+  </div>
+</div>
+
+<!-- APPLICATION PRINCIPALE -->
+<div class="app" id="app">
+  <div class="err-banner" id="err-banner"></div>
+  <div class="topbar">
+    <div class="brand">
+      <div class="brand-icon"><i class="ti ti-calendar-event"></i></div>
+      <div><div class="brand-text">Planning des conseillers</div><div class="brand-sub">Saint-Hilaire-du-Harcouët</div></div>
+    </div>
+    <button class="id-pill" id="notif-btn" onclick="enableNotifications()" style="border:0.5px solid var(--border2);cursor:pointer;font-family:inherit;font-size:13px;color:var(--text2)">
+      <i class="ti ti-bell" style="font-size:13px"></i> Activer les notifications
+    </button>
+    <div class="id-pill" onclick="openIdentityModal()">
+      <div class="av anon" id="top-av"><i class="ti ti-user" style="font-size:13px"></i></div>
+      <span id="top-lbl" style="font-size:13px;color:var(--text2)">Choisir mon nom</span>
+    </div>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat blue"><div class="stat-val" id="s-ev">–</div><div class="stat-lbl"><i class="ti ti-calendar" style="font-size:12px;margin-right:3px"></i>À venir</div></div>
+    <div class="stat green"><div class="stat-val" id="s-pr">–</div><div class="stat-lbl"><i class="ti ti-check" style="font-size:12px;margin-right:3px"></i>Mes présences</div></div>
+    <div class="stat red"><div class="stat-val" id="s-sa">–</div><div class="stat-lbl"><i class="ti ti-alert-circle" style="font-size:12px;margin-right:3px"></i>Sans participant</div></div>
+    <div class="stat purple"><div class="stat-val" id="s-co">–</div><div class="stat-lbl"><i class="ti ti-users" style="font-size:12px;margin-right:3px"></i>Conseillers</div></div>
+  </div>
+
+  <div class="nav">
+    <div class="tabs">
+      <button class="tab active" onclick="setTab('upcoming')"><i class="ti ti-clock" style="font-size:13px"></i>À venir</button>
+      <button class="tab" onclick="setTab('past')"><i class="ti ti-history" style="font-size:13px"></i>Passés</button>
+      <button class="tab" onclick="setTab('annual')"><i class="ti ti-layout-list" style="font-size:13px"></i>Annuel</button>
+      <button class="tab" onclick="setTab('manage')"><i class="ti ti-users" style="font-size:13px"></i>Conseillers</button>
+    </div>
+    <button class="btn-add" onclick="openAddEvent()"><i class="ti ti-plus" style="font-size:14px"></i>Ajouter</button>
+  </div>
+
+  <div id="tab-upcoming"><div class="filter-bar" id="fb-up"></div><div class="ev-grid" id="ev-upcoming"><div class="loading"><div class="spinner"></div>Chargement…</div></div></div>
+  <div id="tab-past" style="display:none"><div class="filter-bar" id="fb-past"></div><div class="ev-grid" id="ev-past"></div></div>
+  <div id="tab-annual" style="display:none">
+    <div class="year-nav">
+      <button class="yn-btn" onclick="changeYear(-1)"><i class="ti ti-chevron-left"></i></button>
+      <span class="year-lbl" id="year-lbl">2026</span>
+      <button class="yn-btn" onclick="changeYear(1)"><i class="ti ti-chevron-right"></i></button>
+    </div>
+    <div class="a-legend">
+      <span class="leg-item"><span class="ldot" style="background:var(--gm)"></span>Participants inscrits</span>
+      <span class="leg-item"><span class="ldot" style="background:#E24B4A"></span>Aucun participant</span>
+    </div>
+    <div class="annual-wrap" id="annual-wrap"></div>
+  </div>
+  <div id="tab-manage" style="display:none">
+    <div class="manage-wrap">
+      <div class="add-box">
+        <div class="add-box-title"><i class="ti ti-user-plus" style="font-size:16px;color:var(--gm)"></i>Ajouter un conseiller</div>
+        <div class="add-row"><input type="text" id="new-c-input" placeholder="Prénom Nom…"><button class="btn-confirm" onclick="addConseiller()"><i class="ti ti-plus" style="font-size:14px"></i>Ajouter</button></div>
+      </div>
+      <div><div class="section-hd" id="manage-count">Conseillers</div><div class="c-grid" id="manage-list"><div class="loading"><div class="spinner"></div>Chargement…</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- MODALES -->
+<div class="modal-bg" id="identity-modal">
+  <div class="modal">
+    <div class="modal-title"><i class="ti ti-user-circle" style="font-size:22px;color:var(--gm)"></i>Qui êtes-vous ?</div>
+    <div class="id-list" id="identity-list"></div>
+    <div style="display:flex;justify-content:flex-end"><button class="btn-cancel" onclick="closeModal('identity-modal')">Fermer</button></div>
+  </div>
+</div>
+
+<div class="modal-bg" id="add-event-modal">
+  <div class="modal">
+    <div class="modal-title"><i class="ti ti-calendar-plus" style="font-size:22px;color:var(--gm)"></i>Nouvel événement</div>
+    <div class="mf"><label>Nom de l'événement</label><input type="text" id="ev-name-in" placeholder="Ex : Réunion du conseil municipal"></div>
+    <div class="mf"><label>Type</label>
+      <select id="ev-type-in">
+        <option value="conseil">🏛️ Conseil municipal</option>
+        <option value="culture">🎭 Culturel</option>
+        <option value="sport">⚽ Sportif</option>
+        <option value="commerce">🛒 Commerce</option>
+        <option value="patrimoine">🏰 Patrimoine</option>
+        <option value="social">🤝 Social</option>
+        <option value="jeunesse">🎓 Jeunesse</option>
+        <option value="environnement">🌿 Environnement</option>
+        <option value="autre">📌 Autre</option>
+      </select>
+    </div>
+    <div class="mf-row">
+      <div class="mf"><label>Date</label><input type="date" id="ev-date-in"></div>
+      <div class="mf" style="max-width:130px"><label>Heure</label><input type="time" id="ev-time-in"></div>
+    </div>
+    <div class="mf"><label>Lieu (optionnel)</label><input type="text" id="ev-lieu-in" placeholder="Ex : Salle du conseil"></div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal('add-event-modal')">Annuler</button>
+      <button class="btn-confirm" onclick="saveEvent()" id="save-ev-btn"><i class="ti ti-check" style="font-size:14px"></i>Enregistrer</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-bg" id="confirm-modal">
+  <div class="modal">
+    <div class="modal-title"><i class="ti ti-alert-triangle" style="font-size:22px;color:#E24B4A"></i><span id="confirm-title">Confirmer</span></div>
+    <p id="confirm-msg" style="font-size:14px;color:var(--text2);line-height:1.6"></p>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal('confirm-modal')">Annuler</button>
+      <button class="btn-danger" id="confirm-ok">Supprimer</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ============================================================
+// MOT DE PASSE — modifiez cette valeur pour changer l'accès
+const PASSWORD = "SHH2026";
+// URL APPS SCRIPT
+const API_URL = "https://script.google.com/macros/s/AKfycbzwXphDFpugx4wWK4t5TIypIx8bkjhervwjSFTQOmm7aWZSVkHY8m-5z-X-dRNSjtxe/exec";
+// ============================================================
+
+const TODAY = new Date(); TODAY.setHours(0,0,0,0);
+const ML = ["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"];
+const MS = ["jan","fév","mars","avr","mai","juin","juil","août","sep","oct","nov","déc"];
+const CBG = ["#E6F1FB","#E1F5EE","#FAEEDA","#FBEAF0","#EEEDFE","#FAECE7","#EAF3DE","#F1EFE8"];
+const CTX = ["#0C447C","#085041","#633806","#72243E","#3C3489","#712B13","#27500A","#444441"];
+const TYPES = {
+  conseil:{label:"Conseil municipal",emoji:"🏛️",bg:"#E6F1FB",color:"#0C447C",border:"#85B7EB"},
+  culture:{label:"Culturel",emoji:"🎭",bg:"#EEEDFE",color:"#3C3489",border:"#AFA9EC"},
+  sport:{label:"Sportif",emoji:"⚽",bg:"#E1F5EE",color:"#085041",border:"#5DCAA5"},
+  commerce:{label:"Commerce",emoji:"🛒",bg:"#FAEEDA",color:"#633806",border:"#EF9F27"},
+  patrimoine:{label:"Patrimoine",emoji:"🏰",bg:"#F1EFE8",color:"#444441",border:"#B4B2A9"},
+  social:{label:"Social",emoji:"🤝",bg:"#FBEAF0",color:"#72243E",border:"#ED93B1"},
+  jeunesse:{label:"Jeunesse",emoji:"🎓",bg:"#EAF3DE",color:"#27500A",border:"#97C459"},
+  environnement:{label:"Environnement",emoji:"🌿",bg:"#E1F5EE",color:"#0F6E56",border:"#1D9E75"},
+  autre:{label:"Autre",emoji:"📌",bg:"#FCEBEB",color:"#A32D2D",border:"#F09595"}
+};
+
+let events=[], conseillers=[], currentUser=localStorage.getItem("shh_user")||"";
+let openCards=new Set(), currentTab="upcoming", currentYear=new Date().getFullYear(), activeFilter="all";
+
+// UTILS
+function ini(n){const p=n.trim().split(" ");return(p[0][0]+(p[1]?p[1][0]:"")).toUpperCase();}
+function ci(n){let h=0;for(let i=0;i<n.length;i++)h=(h*31+n.charCodeAt(i))%CBG.length;return h;}
+function sortKey(ev){return ev.date+"T"+(ev.time||"00:00");}
+function fmtTime(t){return t&&t!=="00:00"?t:"";}
+
+// LOGIN
+function checkLogin(){
+  const pwd=document.getElementById("login-pwd").value;
+  const err=document.getElementById("login-error");
+  if(pwd===PASSWORD){
+    sessionStorage.setItem("shh_auth","1");
+    document.getElementById("login-screen").style.display="none";
+    document.getElementById("app").style.display="block";
+    err.classList.remove("show");
+    loadAll();
+    checkNotifStatus();
+  } else {
+    err.classList.add("show");
+    document.getElementById("login-pwd").value="";
+    document.getElementById("login-pwd").focus();
+  }
+}
+
+function initApp(){
+  if(sessionStorage.getItem("shh_auth")==="1"){
+    document.getElementById("login-screen").style.display="none";
+    document.getElementById("app").style.display="block";
+    loadAll();
+    checkNotifStatus();
+  } else {
+    setTimeout(()=>document.getElementById("login-pwd").focus(),100);
+  }
+}
+
+// API
+async function api(action,data={}){
+  try{
+    const params=new URLSearchParams({action,...data});
+    const res=await fetch(API_URL+"?"+params.toString(),{method:"GET",redirect:"follow"});
+    const json=await res.json();
+    if(json.error)throw new Error(json.error);
+    return json;
+  }catch(e){
+    showError("Erreur de connexion : "+e.message);
+    throw e;
+  }
+}
+
+async function loadAll(){
+  try{
+    const data=await api("getAll");
+    events=data.events||[];
+    conseillers=data.conseillers||[];
+    updateTopbar();updateStats();render();
+  }catch(e){}
+}
+
+function showError(msg){const b=document.getElementById("err-banner");b.textContent=msg;b.classList.add("show");}
+function showToast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2500);}
+
+// TABS
+function setTab(t){
+  currentTab=t;activeFilter="all";
+  ["upcoming","past","annual","manage"].forEach(id=>{document.getElementById("tab-"+id).style.display=id===t?"block":"none";});
+  document.querySelectorAll(".tab").forEach((b,i)=>b.classList.toggle("active",["upcoming","past","annual","manage"][i]===t));
+  if(t==="manage")renderManage();
+  else if(t==="annual")renderAnnual();
+  else render();
+}
+
+function updateTopbar(){
+  const av=document.getElementById("top-av"),lbl=document.getElementById("top-lbl");
+  if(currentUser){
+    const idx=ci(currentUser);
+    av.style.background=CBG[idx];av.style.color=CTX[idx];
+    av.innerHTML="";av.textContent=ini(currentUser);av.classList.remove("anon");
+    lbl.textContent=currentUser;lbl.style.color="var(--text)";
+  }else{
+    av.innerHTML='<i class="ti ti-user" style="font-size:13px"></i>';
+    av.style.background="";av.style.color="";av.classList.add("anon");
+    lbl.textContent="Choisir mon nom";lbl.style.color="";
+  }
+}
+
+function updateStats(){
+  const up=events.filter(e=>{const d=new Date(e.date);d.setHours(0,0,0,0);return d>=TODAY;});
+  document.getElementById("s-ev").textContent=up.length;
+  document.getElementById("s-pr").textContent=events.filter(e=>currentUser&&e.participants.includes(currentUser)).length;
+  document.getElementById("s-sa").textContent=up.filter(e=>e.participants.length===0).length;
+  document.getElementById("s-co").textContent=conseillers.length;
+}
+
+function renderFilterBar(list,barId){
+  const types=[...new Set(list.map(e=>e.type||"autre"))];
+  const bar=document.getElementById(barId);
+  if(types.length<2){bar.innerHTML="";return;}
+  bar.innerHTML='<button class="filter-btn'+(activeFilter==="all"?" active":"")+'" onclick="setFilter(\'all\',\''+barId+'\')">Tous</button>'
+    +types.map(t=>{const tp=TYPES[t]||TYPES.autre;const a=activeFilter===t;return`<button class="filter-btn${a?" active":""}" onclick="setFilter('${t}','${barId}')" style="${a?`background:${tp.bg};border-color:${tp.border};color:${tp.color}`:""}">${tp.emoji} ${tp.label}</button>`;}).join("");
+}
+
+function setFilter(f,barId){
+  activeFilter=f;
+  const list=currentTab==="upcoming"?events.filter(e=>{const d=new Date(e.date);d.setHours(0,0,0,0);return d>=TODAY;}):events.filter(e=>{const d=new Date(e.date);d.setHours(0,0,0,0);return d<TODAY;});
+  renderFilterBar(list,barId);
+  renderEvents(list,currentTab==="upcoming"?"ev-upcoming":"ev-past");
+}
+
+function renderEvents(list,cid){
+  const el=document.getElementById(cid);
+  let filtered=activeFilter==="all"?list:list.filter(e=>(e.type||"autre")===activeFilter);
+  // TRI PAR DATE + HEURE
+  filtered=[...filtered].sort((a,b)=>sortKey(a).localeCompare(sortKey(b)));
+  if(!filtered.length){el.innerHTML='<div class="empty"><i class="ti ti-calendar-off"></i><p>Aucun événement ici.</p></div>';return;}
+  el.innerHTML=filtered.map(ev=>{
+    const d=new Date(ev.date),isPast=d<TODAY,isMe=currentUser&&ev.participants.includes(currentUser),isOpen=openCards.has(ev.id);
+    const tp=TYPES[ev.type||"autre"]||TYPES.autre;
+    const t=fmtTime(ev.time);
+    const chips=ev.participants.length
+      ?ev.participants.map(p=>{const idx=ci(p);return`<span class="chip${p===currentUser?" me":""}"><span class="chip-av" style="${p!==currentUser?`background:${CBG[idx]};color:${CTX[idx]}`:""}">${ini(p)}</span>${p}</span>`;}).join("")
+      :'<span style="font-size:12px;color:var(--text3)">Aucun participant encore</span>';
+    return`<div class="ev-card${isMe?" mine":""}${isPast?" past":""}" id="card-${ev.id}">
+      <div class="ev-top" onclick="toggleCard('${ev.id}')">
+        <div class="ev-stripe" style="background:${tp.color};opacity:.7"></div>
+        <div class="ev-date"><div class="ev-day">${d.getDate()}</div><div class="ev-month">${MS[d.getMonth()]}</div></div>
+        <div class="ev-info">
+          <div class="ev-name">${ev.name}</div>
+          <div class="ev-meta">
+            <span class="type-pill" style="background:${tp.bg};color:${tp.color}">${tp.emoji} ${tp.label}</span>
+            ${t?`<span><i class="ti ti-clock" style="font-size:11px;vertical-align:-1px"></i> ${t}</span>`:""}
+            ${ev.lieu?`<span><i class="ti ti-map-pin" style="font-size:11px;vertical-align:-1px"></i> ${ev.lieu}</span>`:""}
+          </div>
+        </div>
+        <div class="ev-right">
+          <span class="badge-p ${ev.participants.length>0?"has":"zero"}">${ev.participants.length>0?ev.participants.length+" présent"+(ev.participants.length>1?"s":""):"Aucun"}</span>
+          ${!isPast&&currentUser?`<button class="btn-join ${isMe?"in":"out"}" onclick="event.stopPropagation();togglePresence('${ev.id}')">${isMe?'<i class="ti ti-check" style="font-size:12px;margin-right:3px"></i>Présent·e':'+ M\'inscrire'}</button>`:""}
+        </div>
+      </div>
+      <div class="ev-body${isOpen?" open":""}" id="body-${ev.id}" style="border-top-color:${tp.border}">
+        <div class="p-grid">${chips}</div>
+        <div class="ev-foot">
+          <span class="ev-foot-info">${ev.participants.length} / ${conseillers.length} conseillers inscrits</span>
+          <button class="btn-del" onclick="confirmDeleteEvent('${ev.id}','${ev.name.replace(/'/g,"\\'")}')"><i class="ti ti-trash"></i> Supprimer</button>
+        </div>
+      </div>
+    </div>`;
+  }).join("");
+}
+
+function render(){
+  const up=events.filter(e=>{const d=new Date(e.date);d.setHours(0,0,0,0);return d>=TODAY;});
+  const past=events.filter(e=>{const d=new Date(e.date);d.setHours(0,0,0,0);return d<TODAY;});
+  if(currentTab==="upcoming"){renderFilterBar(up,"fb-up");renderEvents(up,"ev-upcoming");}
+  if(currentTab==="past"){renderFilterBar(past,"fb-past");renderEvents(past,"ev-past");}
+  updateStats();
+}
+
+function renderAnnual(){
+  document.getElementById("year-lbl").textContent=currentYear;
+  const wrap=document.getElementById("annual-wrap");
+  const yev=events.filter(e=>new Date(e.date).getFullYear()===currentYear);
+  if(!yev.length){wrap.innerHTML='<div class="empty"><i class="ti ti-calendar-off"></i><p>Aucun événement en '+currentYear+'.</p></div>';return;}
+  const byM={};
+  yev.forEach(ev=>{const m=new Date(ev.date).getMonth();if(!byM[m])byM[m]=[];byM[m].push(ev);});
+  wrap.innerHTML=Object.keys(byM).map(Number).sort((a,b)=>a-b).map(m=>{
+    const rows=[...byM[m]].sort((a,b)=>sortKey(a).localeCompare(sortKey(b))).map(ev=>{
+      const d=new Date(ev.date),hasP=ev.participants.length>0,cl=hasP?"green":"red",tp=TYPES[ev.type||"autre"]||TYPES.autre,t=fmtTime(ev.time);
+      return`<div class="a-row ${cl}" onclick="goToEvent('${ev.id}')">
+        <span class="a-dot ${cl}"></span>
+        <span class="a-day ${cl}">${String(d.getDate()).padStart(2,"0")}</span>
+        ${t?`<span class="a-time ${cl}"><i class="ti ti-clock" style="font-size:10px"></i> ${t}</span>`:""}
+        <span class="a-name ${cl}">${ev.name}</span>
+        <span class="a-type" style="background:${tp.bg};color:${tp.color}">${tp.emoji} ${tp.label}</span>
+        <span class="a-badge ${cl}">${hasP?ev.participants.length+" présent"+(ev.participants.length>1?"s":""):"Personne"}</span>
+      </div>`;
+    }).join("");
+    return`<div><div class="month-hd">${ML[m]}</div>${rows}</div>`;
+  }).join("");
+}
+
+function changeYear(d){currentYear+=d;renderAnnual();}
+
+function goToEvent(id){
+  setTab("upcoming");activeFilter="all";openCards.add(id);render();
+  setTimeout(()=>{const el=document.getElementById("card-"+id);if(el)el.scrollIntoView({behavior:"smooth",block:"center"});},120);
+}
+
+function toggleCard(id){
+  if(openCards.has(id))openCards.delete(id);else openCards.add(id);
+  const b=document.getElementById("body-"+id);if(b)b.classList.toggle("open",openCards.has(id));
+}
+
+async function togglePresence(id){
+  if(!currentUser){openIdentityModal();return;}
+  const ev=events.find(e=>e.id===id);if(!ev)return;
+  try{
+    const res=await api("togglePresence",{id,user:currentUser});
+    ev.participants=res.participants;
+    render();if(currentTab==="annual")renderAnnual();
+    showToast(ev.participants.includes(currentUser)?"✓ Présence confirmée !":"Présence retirée");
+  }catch(e){}
+}
+
+function confirmDeleteEvent(id,name){
+  document.getElementById("confirm-title").textContent="Supprimer l'événement";
+  document.getElementById("confirm-msg").textContent=`Supprimer « ${name} » ? Cette action est irréversible.`;
+  document.getElementById("confirm-ok").onclick=async()=>{
+    try{
+      await api("deleteEvent",{id});
+      events=events.filter(e=>e.id!==id);openCards.delete(id);
+      closeModal("confirm-modal");render();if(currentTab==="annual")renderAnnual();
+      showToast("Événement supprimé");
+    }catch(e){}
+  };
+  document.getElementById("confirm-modal").classList.add("open");
+}
+
+function openIdentityModal(){
+  document.getElementById("identity-list").innerHTML=conseillers.map(c=>{
+    const idx=ci(c);
+    return`<div class="c-opt${c===currentUser?" selected":""}" onclick="selectUser('${c.replace(/'/g,"\\'")}')">
+      <div class="cav-lg" style="${c!==currentUser?`background:${CBG[idx]};color:${CTX[idx]}`:"background:var(--gm);color:#fff"}">${ini(c)}</div>
+      <span style="font-size:14px;font-weight:500">${c}</span>
+      ${c===currentUser?'<i class="ti ti-check" style="margin-left:auto;color:var(--gm);font-size:16px"></i>':""}
+    </div>`;
+  }).join("");
+  document.getElementById("identity-modal").classList.add("open");
+}
+
+function selectUser(name){
+  currentUser=name;localStorage.setItem("shh_user",name);
+  closeModal("identity-modal");updateTopbar();updateStats();render();
+  showToast("Bonjour "+name.split(" ")[0]+" !");
+}
+
+function openAddEvent(){
+  ["ev-name-in","ev-lieu-in","ev-time-in"].forEach(id=>document.getElementById(id).value="");
+  document.getElementById("ev-date-in").value="";
+  document.getElementById("ev-type-in").value="conseil";
+  document.getElementById("add-event-modal").classList.add("open");
+  setTimeout(()=>document.getElementById("ev-name-in").focus(),100);
+}
+
+async function saveEvent(){
+  const name=document.getElementById("ev-name-in").value.trim();
+  const date=document.getElementById("ev-date-in").value;
+  const time=document.getElementById("ev-time-in").value||"";
+  const type=document.getElementById("ev-type-in").value;
+  const lieu=document.getElementById("ev-lieu-in").value.trim();
+  if(!name||!date)return;
+  const btn=document.getElementById("save-ev-btn");
+  btn.disabled=true;btn.textContent="Enregistrement…";
+  try{
+    const res=await api("addEvent",{name,type,date,time,lieu});
+    events.push({id:res.id,name,type,date,time,lieu,participants:[]});
+    closeModal("add-event-modal");activeFilter="all";
+    const d=new Date(date);d.setHours(0,0,0,0);
+    if(d>=TODAY)setTab("upcoming");else if(currentTab==="annual")renderAnnual();else render();
+    showToast("Événement ajouté !");
+  }catch(e){}
+  btn.disabled=false;btn.innerHTML='<i class="ti ti-check" style="font-size:14px"></i>Enregistrer';
+}
+
+function closeModal(id){document.getElementById(id).classList.remove("open");}
+
+async function addConseiller(){
+  const inp=document.getElementById("new-c-input"),name=inp.value.trim();
+  if(!name||conseillers.includes(name))return;
+  try{
+    await api("addConseiller",{name});
+    conseillers.push(name);inp.value="";
+    updateStats();renderManage();
+    showToast("Conseiller ajouté !");
+  }catch(e){}
+}
+
+function confirmRemoveConseiller(name){
+  document.getElementById("confirm-title").textContent="Retirer le conseiller";
+  document.getElementById("confirm-msg").textContent=`Retirer ${name} de la liste ? Ses inscriptions seront supprimées.`;
+  document.getElementById("confirm-ok").onclick=async()=>{
+    try{
+      await api("deleteConseiller",{name});
+      conseillers=conseillers.filter(c=>c!==name);
+      events.forEach(ev=>{ev.participants=ev.participants.filter(p=>p!==name);});
+      if(currentUser===name){currentUser="";localStorage.removeItem("shh_user");}
+      closeModal("confirm-modal");updateTopbar();updateStats();renderManage();render();
+      showToast("Conseiller retiré");
+    }catch(e){}
+  };
+  document.getElementById("confirm-modal").classList.add("open");
+}
+
+function renderManage(){
+  document.getElementById("manage-count").textContent=`${conseillers.length} conseiller${conseillers.length>1?"s":""}`;
+  document.getElementById("manage-list").innerHTML=conseillers.length
+    ?conseillers.map(c=>{
+        const idx=ci(c),pres=events.filter(e=>e.participants.includes(c)).length;
+        return`<div class="c-card">
+          <div style="width:40px;height:40px;border-radius:50%;background:${CBG[idx]};color:${CTX[idx]};display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0">${ini(c)}</div>
+          <div class="c-info"><div class="c-name">${c}</div><div class="c-sub">${pres} présence${pres>1?"s":""} confirmée${pres>1?"s":""}</div></div>
+          <button class="btn-trash" onclick="confirmRemoveConseiller('${c.replace(/'/g,"\\'")}')"><i class="ti ti-trash" style="font-size:14px"></i> Supprimer</button>
+        </div>`;
+      }).join("")
+    :'<div class="empty"><i class="ti ti-users"></i><p>Aucun conseiller.</p></div>';
+}
+
+document.getElementById("add-event-modal").addEventListener("keydown",e=>{if(e.key==="Enter")saveEvent();if(e.key==="Escape")closeModal("add-event-modal");});
+document.getElementById("identity-modal").addEventListener("keydown",e=>{if(e.key==="Escape")closeModal("identity-modal");});
+document.getElementById("new-c-input").addEventListener("keydown",e=>{if(e.key==="Enter")addConseiller();});
+
+initApp();
+
+// Enregistrement du Service Worker (rend l'app installable)
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("service-worker.js").then((reg) => {
+      console.log("Service worker enregistré");
+      initFirebaseMessaging(reg);
+    }).catch((err) => {
+      console.log("Erreur service worker:", err);
+    });
+  });
+}
+
+// ============================================================
+// NOTIFICATIONS PUSH - Firebase Cloud Messaging
+// ============================================================
+const FIREBASE_CONFIG = {
+  apiKey: "AIzaSyA5Ck54tZJrD8UwXjHPYRlvgkZlHh_F7oI",
+  authDomain: "planning-shh.firebaseapp.com",
+  projectId: "planning-shh",
+  storageBucket: "planning-shh.firebasestorage.app",
+  messagingSenderId: "598996911284",
+  appId: "1:598996911284:web:570217dcb128952a57c3e1"
+};
+const VAPID_KEY = "BEj6d5kqlyZJVKyTSQZBWhXTH-gtaRK0bPmoR6mGcRMN25LwdEFvGnDy0_oURXt_BKJTH0iVv8nhk6WygKOJfIg";
+
+async function initFirebaseMessaging(swRegistration) {
+  try {
+    const { initializeApp } = await import("https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js");
+    const { getMessaging, getToken, onMessage } = await import("https://www.gstatic.com/firebasejs/10.13.0/firebase-messaging.js");
+
+    const app = initializeApp(FIREBASE_CONFIG);
+    const messaging = getMessaging(app);
+    window._fcmMessaging = messaging;
+    window._fcmGetToken = getToken;
+
+    // Réception d'une notification pendant que l'app est ouverte au premier plan
+    onMessage(messaging, (payload) => {
+      showToast("🔔 " + (payload.notification?.title || "Nouvel événement"));
+      loadAll();
+    });
+  } catch (e) {
+    console.log("Firebase messaging non disponible:", e);
+  }
+}
+
+async function enableNotifications() {
+  if (!("Notification" in window)) {
+    showToast("Les notifications ne sont pas supportées sur cet appareil");
+    return;
+  }
+  const permission = await Notification.requestPermission();
+  if (permission !== "granted") {
+    showToast("Notifications refusées");
+    updateNotifBtn(false);
+    return;
+  }
+  try {
+    const reg = await navigator.serviceWorker.ready;
+    const token = await window._fcmGetToken(window._fcmMessaging, {
+      vapidKey: VAPID_KEY,
+      serviceWorkerRegistration: reg
+    });
+    if (token) {
+      localStorage.setItem("shh_fcm_token", token);
+      if (currentUser) {
+        try { await api("saveToken", { user: currentUser, token }); } catch(e) {}
+      }
+      showToast("✓ Notifications activées !");
+      updateNotifBtn(true);
+    }
+  } catch (e) {
+    console.log("Erreur token FCM:", e);
+    showToast("Erreur lors de l'activation des notifications");
+  }
+}
+
+function updateNotifBtn(enabled) {
+  const btn = document.getElementById("notif-btn");
+  if (!btn) return;
+  if (enabled) {
+    btn.innerHTML = '<i class="ti ti-bell-check" style="font-size:13px"></i> Notifications activées';
+    btn.classList.add("active");
+  } else {
+    btn.innerHTML = '<i class="ti ti-bell" style="font-size:13px"></i> Activer les notifications';
+    btn.classList.remove("active");
+  }
+}
+
+function checkNotifStatus() {
+  if ("Notification" in window) {
+    updateNotifBtn(Notification.permission === "granted" && localStorage.getItem("shh_fcm_token"));
+  }
+}
+</script>
+</body>
+</html>
